@@ -1,26 +1,8 @@
-import re4 from '../../assets/images/re4.png'
-import hogwarts from '../../assets/images/fundo_hogwarts.png'
 import play from '../../assets/images/play.png'
 import zoom from '../../assets/images/zoom.png'
 import Section from '../Section'
-import { Action, Item, Items, Modal, ModalContent } from './styles'
+import * as S from './styles'
 import { useState } from 'react'
-import { GalleryItem } from '../../pages/Home'
-
-const mock: GalleryItem[] = [
-  {
-    type: 'image',
-    url: re4
-  },
-  {
-    type: 'image',
-    url: hogwarts
-  },
-  {
-    type: 'video',
-    url: 'https://www.youtube.com/embed/6cp-gVPsHWw?si=m0vOeO7IoMUCQfUo'
-  }
-]
 
 type Props = {
   defaultCover: string
@@ -60,9 +42,9 @@ const Gallery = ({ defaultCover, name, items }: Props) => {
   return (
     <>
       <Section title="Galeria" background="black">
-        <Items>
+        <S.Items>
           {items.map((media, index) => (
-            <Item
+            <S.Item
               key={media.url}
               onClick={() => {
                 setModal({
@@ -76,18 +58,18 @@ const Gallery = ({ defaultCover, name, items }: Props) => {
                 src={getMediaCover(media)}
                 alt={`Mídia ${index + 1} de ${name}`}
               />
-              <Action>
+              <S.Action>
                 <img
                   src={getMediaIcon(media)}
                   alt="Clique para maximizar a mídia"
                 />
-              </Action>
-            </Item>
+              </S.Action>
+            </S.Item>
           ))}
-        </Items>
+        </S.Items>
       </Section>
-      <Modal className={modal.isVisible ? 'visible' : ''}>
-        <ModalContent className="container">
+      <S.Modal className={modal.isVisible ? 'is-visible' : ''}>
+        <S.ModalContent className="container">
           <header>
             <h4>{name}</h4>
             <p onClick={closeModal}>X</p>
@@ -97,10 +79,9 @@ const Gallery = ({ defaultCover, name, items }: Props) => {
           ) : (
             <iframe frameBorder={0} src={modal.url} />
           )}
-          <img src={modal.url} alt="" />
-        </ModalContent>
+        </S.ModalContent>
         <div className="overlay" onClick={closeModal}></div>
-      </Modal>
+      </S.Modal>
     </>
   )
 }
